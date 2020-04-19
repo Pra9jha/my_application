@@ -4,11 +4,13 @@ from rest_framework.decorators import api_view
 from .models import Article
 from .serializers import ArticleSerializer
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import redirect
-import os
+
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+
+from .sqs_que import send_message as sm
 
 #class based views  with authhentation
 
@@ -22,23 +24,20 @@ class ArticalAPIView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication,TokenAuthentication]
     permission_classes = [IsAdminUser]
     def get(self,request):
-        # lst=[]
         article = Article.objects.all()
         serializer = ArticleSerializer(article, many=True)
-        # for i in request.session:
-        #    lst.append(i)
-        # if 'username' in request.session:
-        #     username=request.session["username"]
-        # return Response(serializer.data)
+        return Response(serializer.data)
         # return Response((request.session)["_auth_user_id"])
-        return Response(str(User.objects.get(pk=(request.session)["_auth_user_id"])))
+        # return Response(str(User.objects.get(pk=(request.session)["_auth_user_id"])))
 
     def post(self,request):
         serializer = ArticleSerializer(data=request.data)
         if serializer.is_valid():
+            sm(request.data)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ArticalDetails(APIView):
 
