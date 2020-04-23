@@ -3,6 +3,8 @@ from django.urls import path
 from . import views ,view_request_response as vrr, view_classed_based as vcb
 from . import view_Article
 from  .view_Article import  ArticalAPIView,ArticalDetails
+
+
 urlpatterns = [
     # //To call view_basic uncommnet below
     # path('',views.snippet_list),
@@ -21,7 +23,6 @@ urlpatterns = [
     path('article/<int:pk>/',ArticalDetails.as_view())
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
-
 
 
 

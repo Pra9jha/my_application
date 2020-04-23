@@ -1,6 +1,9 @@
 from django.db import models
 # from ..mahashiva.settings import AUTH_USER_MODEL
 from django.conf import settings
+import os
+
+setting=os.path.join('..','')
 
 # Create your models here.
 

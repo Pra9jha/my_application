@@ -42,4 +42,8 @@ class Snippet(models.Model):
 
 
 
+class Image(models.Model):
+   image=models.ImageField(upload_to='upload_image', null=True)
 
+   def __str__(self):
+       return 'id: {} image: {}'.format(self.id,self.image)

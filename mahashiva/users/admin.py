@@ -9,3 +9,8 @@ admin.site.register(Snippet)
 admin.site.register(Article)
 
 
+
+
+from .models import Image
+
+admin.site.register(Image)

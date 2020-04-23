@@ -6,3 +6,5 @@ class Blog_PostSerializer(serializers.ModelSerializer):
             model = Blog_Post
             fields = ['title' ,'body','image' ,'date_publish' ,'date_updated' ,'author']
 
+
+
