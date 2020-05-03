@@ -11,6 +11,8 @@ User = get_user_model()
 
 
 from .sqs_que import send_message as sm
+from .log import log as log
+log=log()
 
 #class based views  with authhentation
 
@@ -26,7 +28,11 @@ class ArticalAPIView(APIView):
     def get(self,request):
         article = Article.objects.all()
         serializer = ArticleSerializer(article, many=True)
+        log("authentication_class : "+ str(self.authentication_classes) +"  "+"permission class : "+str(self.permission_classes) )
+        log(str(User.objects.get(pk=(request.session)["_auth_user_id"])))
         return Response(serializer.data)
+
+
         # return Response((request.session)["_auth_user_id"])
         # return Response(str(User.objects.get(pk=(request.session)["_auth_user_id"])))
 
@@ -37,6 +43,9 @@ class ArticalAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 
 class ArticalDetails(APIView):

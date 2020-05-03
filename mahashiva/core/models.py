@@ -36,6 +36,5 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
-    #aapna chull
     # def __str__(self):
-    #     return 'email:{},name:{}'.format(self.email,self.name)
+        # return 'email:{},name:{},is_active:{},is_staff={}'.format(self.email,self.name,self.is_active,self.is_staff)
