@@ -22,13 +22,14 @@ from rest_framework.permissions import IsAuthenticated,IsAdminUser
 
 
 class UserApi(APIView):
+    print_log("apple")
     authentication_classes = [SessionAuthentication, BasicAuthentication,TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def get_object(self,request):
         u_id = request.session["_auth_user_id"]
         print_log(request.session)
         user = User.objects.get(id=u_id)
-        # print_log("{}  {}".format(u_id,user))
+        print_log("{}  {}".format(u_id,user))
         return user
     def get(self,request):
         print_log("into get ")
